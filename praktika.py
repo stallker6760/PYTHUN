@@ -1,69 +1,69 @@
-slovartovarov = [ 
+dictionary_goods = [ 
     {
     "id": 0,
-    "name": "мышь",
-    "category": "управления",
+    "name": "яблоко",
+    "category": "фрукты",
     "price": 2000,
     "quantity": 30
     },
     {
     "id": 1,
-    "name": "клавиатура",
-    "category": "управления",
+    "name": "груша",
+    "category": "фрукты",
     "price": 7000,
     "quantity": 10
     },
     {
     "id": 2,
-    "name": "монитор",
-    "category": "не управление",
+    "name": "помэла",
+    "category": "фрукты",
     "price": 20000,
     "quantity": 3
     },
     {
     "id": 3,
-    "name": "наушники",
-    "category": "не управления",
+    "name": "тыква",
+    "category": "овощи",
     "price": 1000,
     "quantity": 300
     },
     {
     "id": 4,
-    "name": "веб-камера",
-    "category": "не управления",
+    "name": "огурец",
+    "category": "овощи",
     "price": 4000,
     "quantity": 35
     },
     {
     "id": 5,
-    "name": "микрофон",
-    "category": "не управления",
+    "name": "помидор",
+    "category": "овощи",
     "price": 100,
     "quantity": 5000
     },
     {
     "id": 6,
-    "name": "usb-флешка",
-    "category": "управления",
+    "name": "баклажан",
+    "category": "овощи",
     "price": 300,
     "quantity": 340
     } 
 ]
 
-cena_tovarov = 0
+price = 0
 
-for item in slovartovarov:
+for item in dictionary_goods:
     print(f"id {item['id']} название {item['name']} категория {item['category']} цена {item['price']} кол-во {item['quantity']}")
     
-    cena_tovarov += item['price'] * item['quantity']
+    price += item['price'] * item['quantity']
 
-print(f"общая стоимость товаров {cena_tovarov} рублей")
+print(f"общая стоимость товаров {price} рублей")
 
 search = input("введите свой товар который хотите ").lower()
 
 found = []
 
-for item in slovartovarov:
+for item in dictionary_goods:
     if search in item['name'].lower():
         found.append(item)
 
@@ -72,3 +72,15 @@ if found:
         print(f"id {item['id']} имя {item['name']} категория {item['category']} цена {item['price']} кол-во {item['quantity']}")
 else:
     print('нет таких товаров')
+
+print(set(good["category"] for good in dictionary_goods))
+
+search = input("введите категорию ").lower()
+for item in dictionary_goods:
+    if search in item['category'].lower():
+        found.append(item)
+if found:
+    for item in found:
+        print(f"id {item['id']} имя {item['name']} категория {item['category']} цена {item['price']} кол-во {item['quantity']}")
+else:
+    print('нет таких категорий')
