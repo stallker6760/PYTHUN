@@ -39,7 +39,7 @@ dictionary_goods = [
     "name": "помидор",
     "category": "овощи",
     "price": 100,
-    "quantity": 5000
+    "quantity": 0
     },
     {
     "id": 6,
@@ -49,6 +49,16 @@ dictionary_goods = [
     "quantity": 340
     } 
 ]
+no_quantity =[]
+low_quantity=[]
+else_quantity=[]
+for item in dictionary_goods:
+    if item['quantity'] == 0:
+        no_quantity.append(item['name'])
+    elif item['quantity'] < 5:
+        low_quantity.append(item['name'])
+    else:
+        else_quantity.append(item['name'])
 
 price = 0
 
@@ -84,3 +94,4 @@ if found:
         print(f"id {item['id']} имя {item['name']} категория {item['category']} цена {item['price']} кол-во {item['quantity']}")
 else:
     print('нет таких категорий')
+
