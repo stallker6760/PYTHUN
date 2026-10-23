@@ -3,35 +3,35 @@ dictionary_goods = [
     "id": 0,
     "name": "яблоко",
     "category": "фрукты",
-    "price": 2000,
+    "price": 100,
     "quantity": 30
     },
     {
     "id": 1,
     "name": "груша",
     "category": "фрукты",
-    "price": 7000,
+    "price": 250,
     "quantity": 10
     },
     {
     "id": 2,
     "name": "помэла",
     "category": "фрукты",
-    "price": 20000,
+    "price": 600,
     "quantity": 3
     },
     {
     "id": 3,
     "name": "тыква",
     "category": "овощи",
-    "price": 1000,
+    "price": 500,
     "quantity": 300
     },
     {
     "id": 4,
     "name": "огурец",
     "category": "овощи",
-    "price": 4000,
+    "price": 150,
     "quantity": 35
     },
     {
@@ -146,6 +146,8 @@ def update_quantity(goods, action):
 def show_stats(goods):
     fruits_quantity = 0
     veg_quantity = 0
+    max_price = 0
+    min_price = 0
 
     for item in goods:
         if item["category"] == "фрукты":
@@ -155,11 +157,41 @@ def show_stats(goods):
 
     all_quantity = sum(item["quantity"] for item in goods)
     all_price = sum(item["price"] * item["quantity"] for item in goods)
+    max_price += max(item["price"] for item in goods)
+    min_price += min(item["price"] for item in goods)
+        
+    category_totals = {}
+    
+    for item in goods:
+        cat = item["category"]
+        qty = item["quantity"]
+        if cat not in category_totals:
+            category_totals[cat] = 0
+        category_totals[cat] += qty
+
+    max_cat = max(category_totals, key=category_totals.get)
+    max_qty = category_totals[max_cat]
+    average_price = sum(item["price"] for item in dictionary_goods) / len(dictionary_goods)
+
+    fruit_prices = [item["price"] for item in dictionary_goods if item["category"].lower() == "фрукты"]
+    veg_prices = [item["price"] for item in dictionary_goods if item["category"].lower() == "овощи"]
+
+    avg_fruit_price = sum(fruit_prices) / len(fruit_prices) if fruit_prices else 0
+    avg_veg_price = sum(veg_prices) / len(veg_prices) if veg_prices else 0
+    
 
     print(f"Общее количество фруктов: {fruits_quantity}")
     print(f"Общее количество овощей: {veg_quantity}")
     print(f"Общее количество всех товаров: {all_quantity}")
     print(f"Общая стоимость всех товаров: {all_price} рублей")
+    print(f"Самая большая цена: {max_price}")
+    print(f"Самая мелкая цена: {min_price}")
+    print(f"Средняя цена товаров Фрукты: {avg_fruit_price}")
+    print(f"Средняя цена товаров Овощи: {avg_veg_price}")
+    print(f"Средняя цена товара вообщем {average_price}")
+    print(f"Категория с наибольшим количеством единиц: {max_cat} ({max_qty} шт.)")
+    return max_cat, max_qty
+
 
 
 group_by_quantity(dictionary_goods)
